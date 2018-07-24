@@ -1,0 +1,21 @@
+{
+  "name": "Game",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "score": {
+      "type": "number",
+      "default": 0
+    },
+    "status": {
+      "type":"string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
