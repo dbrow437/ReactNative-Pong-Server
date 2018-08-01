@@ -6,11 +6,14 @@
     "validateUpsert": true
   },
   "properties": {
-    "score": {
+    "population": {
       "type": "number",
-      "default": 0
+      "default": 1
     },
     "status": {
+      "type":"string"
+    },
+     "status": {
       "type":"string"
     }
   },
