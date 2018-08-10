@@ -13,8 +13,33 @@
     "status": {
       "type":"string"
     },
-     "status": {
-      "type":"string"
+    "playerOnePosition": {
+      "type":"number",
+      "default": 0
+    },
+    "playerTwoPosition": {
+      "type":"number",
+      "default": 0
+    },
+    "ballPositionX": {
+      "type":"number",
+      "default": 300
+    },
+    "ballPositionY": {
+      "type":"number",
+      "default": 150
+    },
+    "ballSpeed": {
+      "type":"number",
+      "default": 1
+    },
+    "playerOneScore": {
+      "type":"number",
+      "default": 0
+    },
+    "playerTwoScore": {
+      "type":"number",
+      "default": 0
     }
   },
   "validations": [],

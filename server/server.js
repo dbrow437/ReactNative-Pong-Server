@@ -39,8 +39,47 @@ boot(app, __dirname, function(err) {
       });
 
       socket.on('start-game', (fn) => {
-        startGame(fn)
+        startGame(fn);
       });
+
+      socket.on('move-paddle', (data, fn) => {
+        console.log(data);
+        let tempGame = { id: data.gameRoom };
+
+        if (data.player === 1) {
+          tempGame.playerOnePosition = data.y;
+        }
+        else if (data.player === 2) {
+          tempGame.playerTwoPosition = data.y;
+        };
+
+        games.patchOrCreate(tempGame, function(err, success) {
+          if (err) {
+            console.log(err);
+          }
+          else {
+            console.log(success);
+            // fn(success)
+          }
+        });
+      });
+
+      function game(id) {
+        let interval = setInterval(() => {
+          games.findOne({
+            where: {
+              id: id
+            },
+          }, function(err, success) {
+            if (err) {
+              console.log(err);
+            }
+            else {
+              socket.emit('update', success);
+            }
+          });
+        }, 50);
+      }
 
       function startGame(fn) {
         games.findOne({
@@ -72,11 +111,12 @@ boot(app, __dirname, function(err) {
             console.log(err);
           }
           else {
-            console.log(success)
-            socket.join(success.id)
-            fn("waiting+for+game")
+            success.player = 1;
+            console.log(success);
+            socket.join(success.id);
+            fn(success);
           }
-        })
+        });
       }
 
       function joinGame(id, fn) {
@@ -90,9 +130,10 @@ boot(app, __dirname, function(err) {
             console.log(err);
           }
           else {
-            console.log(success)
-            socket.join(success.id)
-            fn("game+on")
+            success.player = 2;
+            game(id);
+            console.log(success);
+            fn(success);
           }
         });
       }
